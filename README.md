@@ -1,4 +1,4 @@
-computer-database
-=================
+epf-2013-computer-database-1
+============================
 
-Java Project
+Computer Database project for epf students
