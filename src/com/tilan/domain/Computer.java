@@ -1,4 +1,4 @@
-package com.projet.tilan.domain;
+package com.tilan.domain;
 
 public class Computer {
 
