@@ -6,4 +6,5 @@ import com.tilan.domain.Company;
 
 public interface CompanyDao {
 	List<Company> getCompanies (); 
+	void create (Company company); 
 }

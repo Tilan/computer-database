@@ -2,6 +2,7 @@ package com.tilan.controller;
 
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -43,7 +44,14 @@ public class ComputerController extends HttpServlet {
 	 * La methode doPost est executee lorsqu'un client poste des informations (en general formulaire) sur l'URI UserServlet
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String login = request.getParameter("login");
+		String name = request.getParameter("name");
+		String introduced = request.getParameter("introduced");
+		String discontinued = request.getParameter("discontinued");
+		String company = request.getParameter("company"); 
+		
+		
+		
+		//		String login = request.getParameter("login");
 //		String password = request.getParameter("password");
 //		
 //		//Test de validite des champs login et password

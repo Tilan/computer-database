@@ -5,12 +5,13 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 
 @Entity
 @Table(name = "company")
-//@NamedQuery(name = "findAllComputers", query = "Select c From Computer c")
+@NamedQuery(name = "findAllCompagnies", query = "Select c From Company c")
 public class Company {
 	@Id
 	@GeneratedValue
@@ -42,7 +43,7 @@ public class Company {
 			computer = new Computer();
 		}
 		
-		public Builder id(int id) {
+		public Builder id(long id) {
 			computer.setId(id);
 			return this;
 		}
