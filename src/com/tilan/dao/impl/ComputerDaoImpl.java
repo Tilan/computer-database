@@ -37,7 +37,24 @@ public class ComputerDaoImpl  implements ComputerDao {
 
 		@Override
 		public void create(Computer computer) {
-			
-			
+
+			EntityManager em = null;
+			try {
+				//Recuperation de l'entityManager qui gere la connexion a la BD
+				em = DaoManager.INSTANCE.getEntityManager();
+				//Debut de transaction (obligatoire pour des operations d'ecriture sur la BD)
+				em.getTransaction().begin();
+				
+				//Sauvegarde de l'utilisateur
+				em.persist(computer);
+				
+				//Commit de la transaction = on applique toutes les operations ci dessus
+				em.getTransaction().commit();
+			} catch(Exception e) {
+				e.printStackTrace();
+			} finally {
+				if(em != null)
+					em.close();
+			}
 		}
 }

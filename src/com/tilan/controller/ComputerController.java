@@ -2,7 +2,10 @@ package com.tilan.controller;
 
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +13,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.bind.ParseConversionEvent;
 
+import com.tilan.domain.Computer;
 import com.tilan.service.ComputerService;
 import com.tilan.service.manager.ServiceManager;
 
@@ -45,21 +50,24 @@ public class ComputerController extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String name = request.getParameter("name");
-		String introduced = request.getParameter("introduced");
-		String discontinued = request.getParameter("discontinued");
+		String introducedS = request.getParameter("introduced");
+		String discontinuedS = request.getParameter("discontinued");
 		String company = request.getParameter("company"); 
 		
+		Date introduced=null, discontinued=null;
+		try {
+			introduced = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse(introducedS);
+			discontinued = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse(discontinuedS);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
 		
+		if(name!=null&& !name.isEmpty())
+			computerService.create(new Computer.Builder().name(name).introduced(introduced).discontinued(discontinued).build());
+		else 
+			System.out.println("Le nom saisie est vide");
 		
-		//		String login = request.getParameter("login");
-//		String password = request.getParameter("password");
-//		
-//		//Test de validite des champs login et password
-//		if(login != null && !login.isEmpty() && password != null && !password.isEmpty())
-//			userService.create(new User.Builder().login(login).password(password).build());
-//		
-//		//Redirection vers la page
-//		doGet(request, response);
 	}
 	
 }
