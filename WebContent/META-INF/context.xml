@@ -25,9 +25,9 @@
     <!-- url: The JDBC connection url for connecting to your MySQL database.
          -->
 
-  <Resource name="jdbc/computer-database" auth="Container" type="javax.sql.DataSource"
+  <Resource name="jdbc/computer-database-db" auth="Container" type="javax.sql.DataSource"
                maxActive="1000" maxIdle="30" maxWait="10000"
-               username="root" password="" driverClassName="com.mysql.jdbc.Driver"
-               url="jdbc:mysql://localhost:54521/computer-database-db"/>
+               username="admin" password="password2013" driverClassName="com.mysql.jdbc.Driver"
+               url="jdbc:mysql://localhost:3306/computer-database-db?zeroDateTimeBehavior=convertToNull"/>
 
 </Context>

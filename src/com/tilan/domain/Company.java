@@ -1,17 +1,11 @@
 package com.tilan.domain;
 
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-
-import com.tilan.domain.Computer.Builder;
 
 
 @Entity
@@ -20,16 +14,16 @@ import com.tilan.domain.Computer.Builder;
 public class Company {
 	@Id
 	@GeneratedValue
-	private int id; 
+	private long id; 
 	
 	@Column(name="name")
 	private String name;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

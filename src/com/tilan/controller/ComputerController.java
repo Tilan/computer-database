@@ -10,16 +10,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import javax.servlet.annotation.WebServlet;
-
-
-
 import com.tilan.service.ComputerService;
 import com.tilan.service.manager.ServiceManager;
 
+/**
+ * Servlet implementation class UserServlet
+ */
 
-@WebServlet("/ComputerServlet")
+@WebServlet("/toto")
 public class ComputerController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

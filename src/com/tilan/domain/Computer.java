@@ -7,9 +7,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 
@@ -19,28 +22,28 @@ import javax.persistence.Table;
 public class Computer {
 	@Id
 	@GeneratedValue
-	private int id; 
+	private long id; 
 	
 	@Column(name="name")
 	private String name; 
 	
 	@Column(name="introduced")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date introduced; 
 	
 	@Column(name="discontinued")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date discontinued; 
 	
-	@Column(name="company_id")
-	private int company_id; 
-	
 	@ManyToOne
+	@JoinColumn(name="company_id")
 	private Company company;
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -66,14 +69,6 @@ public class Computer {
 
 	public void setDiscontinued(Date discontinued) {
 		this.discontinued = discontinued;
-	}
-
-	public int getCompany_id() {
-		return company_id;
-	}
-
-	public void setCompany_id(int company_id) {
-		this.company_id = company_id;
 	}
 
 	public Company getCompany() {
