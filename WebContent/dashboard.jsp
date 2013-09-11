@@ -1,9 +1,12 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.tilan.domain.*"%>
+
 <jsp:include page="include/header.jsp" />
 
 <section id="main">
-	<h1 id="homeTitle">456 Computers found</h1>
+	<h1 id="homeTitle"> Computers found</h1>
 	<div id="actions">
-		<form action="" method="GET">
+		<form action="ComputerServlet" method="GET">
 			<input type="search" id="searchbox" name="search"
 				value="" placeholder="Search name">
 			<input type="submit" id="searchsubmit"
@@ -27,25 +30,34 @@
 				</tr>
 			</thead>
 			<tbody>
-
-				<tr>
-					<td><a href="#" onclick="">ThinkPad T420</a></td>
-					<td>2011-01-01</td>
-					<td>2013-03-04</td>
-					<td>Lenovo</td>
-				</tr>
-				<tr>
-					<td><a href="#">Precision 3500</a></td>
-					<td>2010-05-07</td>
-					<td>2012-06-01</td>
-					<td>Dell</td>
-				</tr>
-				<tr>
-					<td><a href="#">Macbook Air</a></td>
-					<td>2005-05-09</td>
-					<td>2008-06-06</td>
-					<td>Apple</td>
-				</tr>
+				<c:forEach items="${requestScope.computers}" var="computer">
+					
+					<tr>
+						<td>${computer.name}</td>
+						<td>${computer.introduced}</td>
+						<td>${computer.discontinued}</td>
+						<td>${computer.company}</td>
+					</tr>
+				</c:forEach>
+				
+<!-- 				<tr> -->
+<!-- 					<td><a href="#" onclick="">ThinkPad T420</a></td> -->
+<!-- 					<td>2011-01-01</td> -->
+<!-- 					<td>2013-03-04</td> -->
+<!-- 					<td>Lenovo</td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td><a href="#">Precision 3500</a></td> -->
+<!-- 					<td>2010-05-07</td> -->
+<!-- 					<td>2012-06-01</td> -->
+<!-- 					<td>Dell</td> -->
+<!-- 				</tr> -->
+<!-- 				<tr> -->
+<!-- 					<td><a href="#">Macbook Air</a></td> -->
+<!-- 					<td>2005-05-09</td> -->
+<!-- 					<td>2008-06-06</td> -->
+<!-- 					<td>Apple</td> -->
+<!-- 				</tr> -->
 			</tbody>
 		</table>
 </section>

@@ -1,5 +1,11 @@
 package com.tilan.service;
 
-public class ComputerService {
+import java.util.List;
 
+import com.tilan.domain.Computer;
+
+public interface ComputerService {
+
+		abstract List <Computer> getComputers(); 
+		void create (Computer computer); 
 }
