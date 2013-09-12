@@ -16,7 +16,7 @@ public class CompanyDaoImpl  implements CompanyDao {
 
 		@SuppressWarnings("unchecked")
 		@Override
-		public List<Company> getCompanies() {
+		public List<Company> findAll() {
 
 			EntityManager em = null;
 
@@ -37,9 +37,5 @@ public class CompanyDaoImpl  implements CompanyDao {
 
 		@Override
 		public void create(Company company) {
-			
-			
 		}
-
-
 }

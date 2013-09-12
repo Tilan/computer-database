@@ -62,18 +62,21 @@ public class Computer {
 	}
 
 	public void setIntroduced(Date introduced) {
-		 try {
-			 String date = introduced.toString();
-			 this.introduced = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(date);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		 this.introduced = introduced;
+
 	}
 
+	public String getIntroducedFormatted (){
+		String dateToReturn = "13-02-03";
+		return dateToReturn;
+		
+	}
+	
 	public Date getDiscontinued() {
 		return discontinued;
 	}
+	
+	
 
 	public void setDiscontinued(Date discontinued) {
 		this.discontinued = discontinued;

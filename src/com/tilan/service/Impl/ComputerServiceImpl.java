@@ -16,8 +16,8 @@ public class ComputerServiceImpl implements ComputerService{
 	}
 	
 	@Override
-	public List<Computer> getComputers() {
-		return computerDao.getComputers();
+	public List<Computer> findAll() {
+		return computerDao.findAll();
 	}
 
 	@Override

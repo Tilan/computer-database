@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.tilan.domain.Computer;
+import com.tilan.service.CompanyService;
 import com.tilan.service.ComputerService;
 import com.tilan.service.manager.ServiceManager;
 
@@ -21,21 +22,26 @@ import com.tilan.service.manager.ServiceManager;
  * Servlet implementation class addComputer
  */
 @WebServlet("/addComputer")
-public class addComputer extends HttpServlet {
+public class AddComputer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
 	private ComputerService computerService;
+	private CompanyService companyService;
 	
-    public addComputer() {
+    public AddComputer() {
         super();
         computerService = ServiceManager.INSTANCE.getComputerService();
+        companyService = ServiceManager.INSTANCE.getCompanyService();
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
+		request.setAttribute("companies", companyService.findAll());
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/WEB-INF/addComputer.jsp"));
+		rd.forward(request, response);
 	}
 
 	/**
@@ -51,8 +57,8 @@ public class addComputer extends HttpServlet {
 		
 		java.util.Date introduced=null, discontinued=null;
 		try {
-			introduced = new SimpleDateFormat("yyyy-MM-dd", Locale.FRENCH).parse(introducedS);
-			discontinued = new SimpleDateFormat("yyyy-MM-dd", Locale.FRENCH).parse(discontinuedS);
+			introduced = new SimpleDateFormat("yy-MM-dd", Locale.FRENCH).parse(introducedS);
+			discontinued = new SimpleDateFormat("yy-MM-dd", Locale.FRENCH).parse(discontinuedS);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -64,7 +70,7 @@ public class addComputer extends HttpServlet {
 		else 
 			System.out.println("Le nom saisie est vide");
 		
-		request.setAttribute("computers", computerService.getComputers());
+		request.setAttribute("computers", computerService.findAll());
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/dashboard.jsp"));
 		rd.forward(request, response);
 	}

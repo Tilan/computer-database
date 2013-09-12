@@ -6,6 +6,6 @@ import com.tilan.domain.Computer;
 
 public interface ComputerService {
 
-		abstract List <Computer> getComputers(); 
-		void create (Computer computer); 
+		abstract List <Computer> findAll(); 
+		abstract void create (Computer computer); 
 }

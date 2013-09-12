@@ -1,7 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.tilan.domain.*"%>
 
-<jsp:include page="include/header.jsp" />
+<jsp:include page="../include/header.jsp" />
 <section id="main">
 
 	<h1>Add Computer</h1>
@@ -34,11 +34,10 @@
 				<label for="company">Company Name:</label>
 				<div class="input">
 					<select name="company">
-					<c:set var="i" value="0"/>
-						<c:forEach items="${requestScope.companies}" var="company">
-							<c:set var="i" value="i++"/>
-<%-- 							<c:out option value="${i++}">${company.name}</option> --%>
-						</c:forEach>
+						<option value = 0>-- </option>
+							<c:forEach items="${requestScope.companies}" var="company">
+								 <option value = "${company.id}">${company.name}</option>
+							</c:forEach>
 					</select>
 				</div>		
 			</div>
@@ -50,4 +49,4 @@
 	</form>
 </section>
 
-<jsp:include page="include/footer.jsp" />
+<jsp:include page="../include/footer.jsp" />

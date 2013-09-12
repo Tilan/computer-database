@@ -6,6 +6,7 @@ import javax.persistence.Persistence;
 
 import com.tilan.dao.CompanyDao;
 import com.tilan.dao.ComputerDao;
+import com.tilan.dao.impl.CompanyDaoImpl;
 import com.tilan.dao.impl.ComputerDaoImpl;
 
 public enum DaoManager {
@@ -19,6 +20,7 @@ public enum DaoManager {
 	private DaoManager() {
 		emf = Persistence.createEntityManagerFactory("tilanPU");
 		computerDao = new ComputerDaoImpl();
+		companyDao = new CompanyDaoImpl();
 	}
 	
 	public EntityManager getEntityManager() {
@@ -29,16 +31,8 @@ public enum DaoManager {
 		return computerDao;
 	}
 
-	public void setComputerDao(ComputerDao computerDao) {
-		this.computerDao = computerDao;
-	}
-
 	public CompanyDao getCompanyDao() {
 		return companyDao;
-	}
-
-	public void setCompanyDao(CompanyDao companyDao) {
-		this.companyDao = companyDao;
 	}
 
 }

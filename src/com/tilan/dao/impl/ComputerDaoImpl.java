@@ -16,7 +16,7 @@ public class ComputerDaoImpl  implements ComputerDao {
 
 		@SuppressWarnings("unchecked")
 		@Override
-		public List<Computer> getComputers() {
+		public List<Computer> findAll() {
 
 			EntityManager em = null;
 
