@@ -36,7 +36,7 @@
 					<tr>
 						<td>${computer.name}</td>
 						<td>${computer.introducedFormatted}</td>
-						<td>${computer.discontinued}</td>
+						<td>${computer.discontinuedFormatted}</td>
 						<td>${computer.company.name}</td>
 					</tr>
 				</c:forEach>

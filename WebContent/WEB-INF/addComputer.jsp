@@ -19,15 +19,15 @@
 			<div class="clearfix">
 				<label for="introduced">Introduced date:</label>
 				<div class="input">
-					<input type="date" name="introduced" pattern="YY-MM-dd"/>
-					<span class="help-inline">YY-MM-DD</span>
+					<input type="date" name="introduced" pattern="YYYY-MM-dd"/>
+					<span class="help-inline">YYYY-MM-DD</span>
 				</div>
 			</div>
 			<div class="clearfix">
 				<label for="discontinued">Discontinued date:</label>
 				<div class="input">
-					<input type="date" name="discontinued" pattern="YY-MM-dd"/>
-					<span class="help-inline">YY-MM-DD</span>
+					<input type="date" name="discontinued" pattern="YYYY-MM-dd"/>
+					<span class="help-inline">YYYY-MM-DD</span>
 				</div>
 			</div>
 			<div class="clearfix">

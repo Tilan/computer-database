@@ -1,6 +1,8 @@
 package com.tilan.domain;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -9,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -67,40 +68,37 @@ public class Computer {
 	}
 
 	public String getIntroducedFormatted (){
-		/**
-		 * @param 
-		 * @returns 
-		 */
-		String dateS=null; 
-//		try {
-			if(introduced!=null){
-//				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-//				dateS= introduced.toString();
-//				System.out.println("DATE INTRODUCED "+ dateS);
-//				dateS= dateFormat.format(dateFormat.parse(dateS)); 
-//				System.out.println("DATE TO BE RETURNED  "+ dateS);
-				
-				dateS= introduced.getYear()+"-"+introduced.getMonth()+"-"+introduced.getDay();
-				
-//				dateS= introduced.toString(); 
-//				java.util.Date temp = new SimpleDateFormat("yyyy-MM-dd")
-//				.parse(dateS);
-//				System.out.println("DATE INTRODUCED "+ dateS);
-//				dateS=temp.format(); 
-//				System.out.println("DATE TO BE RETURNED "+ dateS);
-			}
-//		} catch (ParseException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-		return dateS;
-		
+		return getDateInNiceStringFormat(introduced); 
 	}
 	
 	public Date getDiscontinued() {
 		return discontinued;
 	}
 	
+	public String getDiscontinuedFormatted (){
+		return getDateInNiceStringFormat(discontinued); 
+	}
+	
+	
+	public String getDateInNiceStringFormat(Date date) 
+	/**
+	 * @author Christop
+	 * @returns La date entrée à un format yyyy-MM-dd en string
+	 */
+	{
+		String dateS=null; 
+		if(date!=null){
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+			dateS= date.toString();
+			System.out.println("DATE INTRODUCED "+ dateS);
+			try {
+				dateS= dateFormat.format(dateFormat.parse(dateS));
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}		
+		}
+		return dateS;
+	}
 	
 
 	public void setDiscontinued(Date discontinued) {
@@ -139,6 +137,11 @@ public class Computer {
 		
 		public Builder discontinued(Date discontinued ) {
 			computer.setDiscontinued(discontinued);
+			return this;
+		}
+		
+		public Builder company (Company company ) {
+			computer.setCompany(company);
 			return this;
 		}
 		
