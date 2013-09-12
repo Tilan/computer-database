@@ -2,6 +2,7 @@ package com.tilan.controller;
 
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.ejb.criteria.expression.function.LengthFunction;
+import org.hibernate.metamodel.relational.Size;
+
+import com.tilan.domain.Computer;
 import com.tilan.service.ComputerService;
 import com.tilan.service.manager.ServiceManager;
 
@@ -33,7 +38,11 @@ public class ListingAllComputers extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Envoyer un objet dans la requete (la liste des computers)
-		request.setAttribute("computers", computerService.findAll());
+		
+		List <Computer> computers = computerService.findAll();
+		int numberOfComputers = computers.size();
+		request.setAttribute("computers", computers);
+		request.setAttribute("numberOfComputers", numberOfComputers);
 		
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/WEB-INF/dashboard.jsp"));
 		rd.forward(request, response);

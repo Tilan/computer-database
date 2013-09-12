@@ -2,6 +2,7 @@ package com.tilan.controller;
 
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.tilan.domain.Computer;
 import com.tilan.service.ComputerService;
 import com.tilan.service.manager.ServiceManager;
 
@@ -33,8 +35,15 @@ public class ListingComputersBySearch extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Envoyer un objet dans la requete (la liste des computers)
-		String name = request.getParameter("search"); 
+		String name = request.getParameter("search");
+		List <Computer> computers=null;
+		int numberOfComputers=0;
 		if(isValideName(name)){
+			computers = computerService.findComputersByName(name);
+			numberOfComputers = computers.size();
+			request.setAttribute("computers", computers);
+			request.setAttribute("numberOfComputers", numberOfComputers);
+			
 			request.setAttribute("computers", computerService.findComputersByName(name));
 			RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/WEB-INF/dashboard.jsp"));
 			rd.forward(request, response);

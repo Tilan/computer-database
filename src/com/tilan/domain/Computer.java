@@ -90,7 +90,6 @@ public class Computer {
 		if(date!=null){
 			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 			dateS= date.toString();
-			System.out.println("DATE INTRODUCED "+ dateS);
 			try {
 				dateS= dateFormat.format(dateFormat.parse(dateS));
 			} catch (ParseException e) {
