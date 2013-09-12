@@ -1,6 +1,8 @@
 package com.tilan.domain;
 
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -60,7 +62,13 @@ public class Computer {
 	}
 
 	public void setIntroduced(Date introduced) {
-		this.introduced = introduced;
+		 try {
+			 String date = introduced.toString();
+			 this.introduced = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S").parse(date);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public Date getDiscontinued() {

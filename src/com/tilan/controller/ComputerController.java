@@ -49,25 +49,26 @@ public class ComputerController extends HttpServlet {
 	 * La methode doPost est executee lorsqu'un client poste des informations (en general formulaire) sur l'URI UserServlet
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String name = request.getParameter("name");
-		String introducedS = request.getParameter("introduced");
-		String discontinuedS = request.getParameter("discontinued");
-		String company = request.getParameter("company"); 
-		
-		Date introduced=null, discontinued=null;
-		try {
-			introduced = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse(introducedS);
-			discontinued = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse(discontinuedS);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-		
-		if(name!=null&& !name.isEmpty())
-			computerService.create(new Computer.Builder().name(name).introduced(introduced).discontinued(discontinued).build());
-		else 
-			System.out.println("Le nom saisie est vide");
-		
+//		String name = request.getParameter("name");
+//		String introducedS = request.getParameter("introduced");
+//		String discontinuedS = request.getParameter("discontinued");
+//		String company = request.getParameter("company"); 
+//		
+//		Date introduced=null, discontinued=null;
+//		try {
+//			introduced = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse(introducedS);
+//			discontinued = new SimpleDateFormat("MMMM d, yyyy", Locale.ENGLISH).parse(discontinuedS);
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} 
+//		
+//		if(name!=null&& !name.isEmpty()){
+//			System.out.println("Le nom saisie est " + name);
+//			computerService.create(new Computer.Builder().name(name).introduced(introduced).discontinued(discontinued).build());
+//		}
+//		else 
+//			System.out.println("Le nom saisie est vide");
 	}
 	
 }
