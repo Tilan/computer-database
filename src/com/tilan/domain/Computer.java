@@ -67,8 +67,33 @@ public class Computer {
 	}
 
 	public String getIntroducedFormatted (){
-		String dateToReturn = "13-02-03";
-		return dateToReturn;
+		/**
+		 * @param 
+		 * @returns 
+		 */
+		String dateS=null; 
+//		try {
+			if(introduced!=null){
+//				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//				dateS= introduced.toString();
+//				System.out.println("DATE INTRODUCED "+ dateS);
+//				dateS= dateFormat.format(dateFormat.parse(dateS)); 
+//				System.out.println("DATE TO BE RETURNED  "+ dateS);
+				
+				dateS= introduced.getYear()+"-"+introduced.getMonth()+"-"+introduced.getDay();
+				
+//				dateS= introduced.toString(); 
+//				java.util.Date temp = new SimpleDateFormat("yyyy-MM-dd")
+//				.parse(dateS);
+//				System.out.println("DATE INTRODUCED "+ dateS);
+//				dateS=temp.format(); 
+//				System.out.println("DATE TO BE RETURNED "+ dateS);
+			}
+//		} catch (ParseException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		return dateS;
 		
 	}
 	

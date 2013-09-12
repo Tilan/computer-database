@@ -57,12 +57,11 @@ public class AddComputer extends HttpServlet {
 		
 		java.util.Date introduced=null, discontinued=null;
 		try {
-			introduced = new SimpleDateFormat("yy-MM-dd", Locale.FRENCH).parse(introducedS);
-			discontinued = new SimpleDateFormat("yy-MM-dd", Locale.FRENCH).parse(discontinuedS);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
+            introduced = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("introducedDate"));
+            discontinued = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("discontinuedDate"));
+        } catch (ParseException e) {
+            System.err.println(e.getMessage());
+        }
 //		System.out.println("Le nom saisie est " + name);
 		if(name!=null&& !name.isEmpty()){
 			computerService.create(new Computer.Builder().name(name).introduced(introduced).discontinued(discontinued).build());
