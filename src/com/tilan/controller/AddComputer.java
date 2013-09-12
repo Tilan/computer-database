@@ -57,8 +57,8 @@ public class AddComputer extends HttpServlet {
 		
 		java.util.Date introduced=null, discontinued=null;
 		try {
-            introduced = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("introducedDate"));
-            discontinued = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("discontinuedDate"));
+            introduced = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("introduced"));
+            discontinued = new SimpleDateFormat("yyyy-MM-dd").parse(request.getParameter("discontinued"));
         } catch (ParseException e) {
             System.err.println(e.getMessage());
         }
@@ -70,7 +70,7 @@ public class AddComputer extends HttpServlet {
 			System.out.println("Le nom saisie est vide");
 		
 		request.setAttribute("computers", computerService.findAll());
-		RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/dashboard.jsp"));
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/WEB-INF/dashboard.jsp"));
 		rd.forward(request, response);
 	}
 

@@ -4,9 +4,9 @@
 <jsp:include page="../include/header.jsp" />
 
 <section id="main">
-	<h1 id="homeTitle"> Computers found</h1>
+	<h1 id="homeTitle">  Computers found</h1>
 	<div id="actions">
-		<form action="ComputerServlet" method="GET">
+		<form action="searchComputer" method="GET">
 			<input type="search" id="searchbox" name="search"
 				value="" placeholder="Search name">
 			<input type="submit" id="searchsubmit"

@@ -34,6 +34,26 @@ public class ComputerDaoImpl  implements ComputerDao {
 			}
 			return computers;
 		}
+		
+		public List<Computer> findComputersByName(String name) {
+
+			EntityManager em = null;
+
+			List<Computer> computers = null;
+
+			try {
+				em = DaoManager.INSTANCE.getEntityManager();
+				//Ici on appelle la namedQuery declaree en annotation dans la classe domain.User
+				computers= em.createQuery("SELECT c FROM Computer c WHERE c.name LIKE :nameSearched").setParameter("nameSearched", "%"+name+"%").getResultList();
+				
+			} catch(Exception e) {
+				e.printStackTrace();
+			} finally {
+				if(em != null)
+					em.close();
+			}
+			return computers;
+		}
 
 		@Override
 		public void create(Computer computer) {

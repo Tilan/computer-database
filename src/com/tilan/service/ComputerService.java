@@ -8,4 +8,5 @@ public interface ComputerService {
 
 		abstract List <Computer> findAll(); 
 		abstract void create (Computer computer); 
+		abstract List <Computer>findComputersByName (String name); 
 }
