@@ -24,8 +24,7 @@ public class ComputerDaoImpl  implements ComputerDao {
 
 			try {
 				em = DaoManager.INSTANCE.getEntityManager();
-				//Ici on appelle la namedQuery declaree en annotation dans la classe domain.User
-				computers = em.createNamedQuery("findAllComputers").getResultList();
+				computers = em.createQuery("SELECT comp FROM Computer comp").getResultList();
 			} catch(Exception e) {
 				e.printStackTrace();
 			} finally {

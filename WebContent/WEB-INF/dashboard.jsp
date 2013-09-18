@@ -31,7 +31,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${requestScope.computers}" var="computer">
+				<c:forEach items="${requestScope.computers}" var="computer" begin="n" end="n+14"><!-- Permet de n'afficher que quinze éléments par page -->
 					
 					<tr>
 						<td>${computer.name}</td>
@@ -42,6 +42,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		<a href="addComputer"><button style="margin-left:49.5%; background:none" type="button" value="next">Next</button></a>
 </section>
 
 <jsp:include page="../include/footer.jsp" />
