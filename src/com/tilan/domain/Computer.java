@@ -119,6 +119,10 @@ public class Computer {
 			computer = new Computer();
 		}
 		
+		public Builder(Computer comp) {
+			computer = comp;
+		}
+		
 		public Builder id(long id) {
 			computer.setId(id);
 			return this;
@@ -148,6 +152,5 @@ public class Computer {
 			return computer;
 		}
 	}
-
 
 }

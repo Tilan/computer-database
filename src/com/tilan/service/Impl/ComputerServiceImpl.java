@@ -27,18 +27,33 @@ public class ComputerServiceImpl implements ComputerService{
 	@Override
 	public void create(Computer computer) {
 		computerDao.create(computer);
-		
 	}
 
 	@Override
 	public Pagination findAll() {
-		return findAll(0,0);
+		return computerDao.findAll(0,0);
 	}
 
 	@Override
 	public Pagination findComputersByName(String name) {
-		return findComputersByName(name, 0, 0);	
-		}
-	
+		return computerDao.findComputersByName(name, 0, 0);	
+	}
+
+	public Computer findComputerById(long id) {
+		return computerDao.findComputerById(id);
+	}
+
+	@Override
+	public void deleteComputerById(long id) {
+		computerDao.deleteComputerById(id);
+		
+	}
+
+	@Override
+	public void update(Computer computer) {
+		computerDao.update(computer); 
+		
+	}
+
 
 }

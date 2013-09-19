@@ -34,7 +34,7 @@
 				<c:forEach items="${requestScope.computers}" var="computer" >
 					
 					<tr>
-						<td>${computer.name}</td>
+						<td><a href="<c:url value="editComputer?idComputerSelected=${computer.id}"/>" onclick="">${computer.name}</a></td>
 						<td>${computer.introducedFormatted}</td>
 						<td>${computer.discontinuedFormatted}</td>
 						<td>${computer.company.name}</td>
@@ -44,10 +44,10 @@
 		</table>
 		<ul>
 		<c:if test="${numPage > 1}">
-		<a href="listAllComputers.aspx?page=${numPage - 1}"><button style="background:none;" type="button" value="next">Précédent</button></a>
+		<a href="listAllComputers.aspx?page=${numPage - 1}"><button style="background:none;" class="btn primary" type="button" value="next">Précédent</button></a>
 		</c:if>
 		<c:if test="${numPage < (requestScope.numberOfComputers/15)}">
-		<a href="listAllComputers.aspx?page=${numPage + 1}"><button style="margin-left:20px; background:none;" type="button" value="next">Suivant</button></a>
+		<a href="listAllComputers.aspx?page=${numPage + 1}"><button style="margin-left:20px; background:none;" class="btn primary" type="button" value="next">Suivant</button></a>
 		</c:if>
 		</ul>
 </section>
