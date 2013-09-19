@@ -37,7 +37,7 @@
 						<option value = 0> ${computer.company.name} </option>
 							<c:forEach items="${requestScope.companies}" var="company">
 								 <c:if test="${computer.company.id != company.id}">
-								 	<option value ="${computer.company.id}"> ${company.name}</option>
+								 	<option value ="${company.id}"> ${company.name}</option>
 								 </c:if>
 							</c:forEach>
 					</select>

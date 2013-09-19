@@ -96,12 +96,12 @@ public class EditComputer extends HttpServlet {
 			}
 			
             // Update the data of the current computer
-            computer.setName(name);
-            computer.setIntroduced(introduced);
-            computer.setDiscontinued(discontinued);
-            computer.setCompany(company);
+//            computer.setName(name);
+//            computer.setIntroduced(introduced);
+//            computer.setDiscontinued(discontinued);
+//            computer.setCompany(company);
 
-//			computer= new Computer.Builder().name(name).introduced(introduced).discontinued(discontinued).company(company).build(); 
+			computer= new Computer.Builder(computer).name(name).introduced(introduced).discontinued(discontinued).company(company).build(); 
 			computerService.update(computer); 
 		}
 		
