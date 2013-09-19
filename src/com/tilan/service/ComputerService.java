@@ -1,12 +1,13 @@
 package com.tilan.service;
 
-import java.util.List;
-
 import com.tilan.domain.Computer;
+import com.tilan.pagination.Pagination;
 
 public interface ComputerService {
 
-		abstract List <Computer> findAll(); 
+		abstract Pagination findAll(); 
+		abstract Pagination findAll(int debut, int taille); 
 		abstract void create (Computer computer); 
-		abstract List <Computer>findComputersByName (String name); 
+		abstract Pagination findComputersByName (String name); 
+		abstract Pagination findComputersByName (String name, int debut, int taille); 
 }

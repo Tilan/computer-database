@@ -1,3 +1,3 @@
 <%
-response.sendRedirect("listAllComputers");
+response.sendRedirect("listAllComputers.aspx");
 %>

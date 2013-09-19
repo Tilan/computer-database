@@ -15,6 +15,7 @@ import org.hibernate.ejb.criteria.expression.function.LengthFunction;
 import org.hibernate.metamodel.relational.Size;
 
 import com.tilan.domain.Computer;
+import com.tilan.pagination.Pagination;
 import com.tilan.service.ComputerService;
 import com.tilan.service.manager.ServiceManager;
 
@@ -22,12 +23,15 @@ import com.tilan.service.manager.ServiceManager;
  * Servlet implementation class UserServlet
  */
 
-@WebServlet("/listAllComputers")
+@WebServlet("/listAllComputers.aspx")
 public class ListingAllComputers extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	private static final boolean PAGINER = true;
 	private ComputerService computerService;
 
+	private int numPage = 1;	//Numéro de page, 1 par défaut
+	private int compParPage = 15; //Nombre de résultat par page, 15 par défaut
     public ListingAllComputers() {
         super();
         computerService = ServiceManager.INSTANCE.getComputerService();
@@ -38,10 +42,17 @@ public class ListingAllComputers extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Envoyer un objet dans la requete (la liste des computers)
+		List<Computer> computers = null;
+		Pagination pagination;
+		//Récuparation du numéro de la page
+		if (request.getParameter("page") != null){
+			numPage = Integer.parseInt(request.getParameter("page"));
+		}
 		
-		List <Computer> computers = computerService.findAll();
-		int numberOfComputers = computers.size();
-		request.setAttribute("computers", computers);
+		pagination = computerService.findAll(numPage,compParPage);
+		int numberOfComputers = pagination.getNbComputer();
+		request.setAttribute("computers", pagination.getComputers());
+		request.setAttribute("numPage", numPage);
 		request.setAttribute("numberOfComputers", numberOfComputers);
 		
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/WEB-INF/dashboard.jsp"));

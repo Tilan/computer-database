@@ -3,10 +3,12 @@ package com.tilan.dao.impl;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import com.tilan.dao.ComputerDao;
 import com.tilan.dao.manager.DaoManager;
 import com.tilan.domain.Computer;
+import com.tilan.pagination.Pagination;
 
 public class ComputerDaoImpl  implements ComputerDao {
 
@@ -16,34 +18,47 @@ public class ComputerDaoImpl  implements ComputerDao {
 
 		@SuppressWarnings("unchecked")
 		@Override
-		public List<Computer> findAll() {
+		public Pagination findAll(int debut, int taille) {
 
 			EntityManager em = null;
-
-			List<Computer> computers = null;
+			Pagination pagination = null;
 
 			try {
 				em = DaoManager.INSTANCE.getEntityManager();
-				computers = em.createQuery("SELECT comp FROM Computer comp").getResultList();
+				Query query = em.createQuery("SELECT comp FROM Computer comp");
+				Pagination.setNbComputer(query.getResultList().size());
+				if (taille > 0) {
+	                query.setFirstResult((debut-1)*taille);
+	                query.setMaxResults(taille);
+	            }
+
+			pagination = new Pagination(query.getResultList());
 			} catch(Exception e) {
 				e.printStackTrace();
 			} finally {
 				if(em != null)
 					em.close();
 			}
-			return computers;
+			return pagination;
 		}
 		
-		public List<Computer> findComputersByName(String name) {
+		public Pagination findComputersByName(String name, int debut, int taille) {
 
 			EntityManager em = null;
 
-			List<Computer> computers = null;
+			Pagination pagination = null;
 
 			try {
 				em = DaoManager.INSTANCE.getEntityManager();
-				//Ici on appelle la namedQuery declaree en annotation dans la classe domain.User
-				computers= em.createQuery("SELECT c FROM Computer c WHERE c.name LIKE :nameSearched").setParameter("nameSearched", "%"+name+"%").getResultList();
+				Query query = em.createQuery("SELECT c FROM Computer c WHERE c.name LIKE :nameSearched");
+				query.setParameter("nameSearched", "%"+name+"%");
+				Pagination.setNbComputer(query.getResultList().size());
+				if (taille > 0) {
+	                query.setFirstResult((debut-1)*taille);
+	                query.setMaxResults(taille);
+	            }
+
+				pagination = new Pagination(query.getResultList());
 				
 			} catch(Exception e) {
 				e.printStackTrace();
@@ -51,7 +66,7 @@ public class ComputerDaoImpl  implements ComputerDao {
 				if(em != null)
 					em.close();
 			}
-			return computers;
+			return pagination;
 		}
 
 		@Override
@@ -75,5 +90,16 @@ public class ComputerDaoImpl  implements ComputerDao {
 				if(em != null)
 					em.close();
 			}
+		}
+
+		@Override
+		public Pagination findAll() {
+			return findAll(0, 0);
+		}
+
+		@Override
+		public Pagination findComputersByName(String name) {
+			
+			return findComputersByName(name, 0,0);
 		}
 }

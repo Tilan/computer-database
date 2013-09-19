@@ -13,7 +13,7 @@
 				value="Filter by name"
 				class="btn primary">
 		</form>
-		<a class="btn success" id="add" href="addComputer">Add Computer</a>
+		<a class="btn success" id="add" href="addComputer.aspx">Add Computer</a>
 <!-- 		passer par une servlet -->
 	</div>
 
@@ -31,7 +31,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach items="${requestScope.computers}" var="computer" begin="n" end="n+14"><!-- Permet de n'afficher que quinze éléments par page -->
+				<c:forEach items="${requestScope.computers}" var="computer" >
 					
 					<tr>
 						<td>${computer.name}</td>
@@ -42,7 +42,14 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<a href="addComputer"><button style="margin-left:49.5%; background:none" type="button" value="next">Next</button></a>
+		<ul>
+		<c:if test="${numPage > 1}">
+		<a href="listAllComputers.aspx?page=${numPage - 1}"><button style="background:none;" type="button" value="next">Précédent</button></a>
+		</c:if>
+		<c:if test="${numPage < (requestScope.numberOfComputers/15)}">
+		<a href="listAllComputers.aspx?page=${numPage + 1}"><button style="margin-left:20px; background:none;" type="button" value="next">Suivant</button></a>
+		</c:if>
+		</ul>
 </section>
 
 <jsp:include page="../include/footer.jsp" />

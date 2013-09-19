@@ -22,7 +22,7 @@ import com.tilan.service.manager.ServiceManager;
 /**
  * Servlet implementation class addComputer
  */
-@WebServlet("/addComputer")
+@WebServlet("/addComputer.aspx")
 public class AddComputer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.tilan.domain.Computer;
+import com.tilan.pagination.Pagination;
 import com.tilan.service.ComputerService;
 import com.tilan.service.manager.ServiceManager;
 
@@ -19,7 +20,7 @@ import com.tilan.service.manager.ServiceManager;
  * Servlet implementation class UserServlet
  */
 
-@WebServlet("/searchComputer")
+@WebServlet("/searchComputer.aspx")
 public class ListingComputersBySearch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -36,11 +37,11 @@ public class ListingComputersBySearch extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Envoyer un objet dans la requete (la liste des computers)
 		String name = request.getParameter("search");
-		List <Computer> computers=null;
+		Pagination computers=null;
 		int numberOfComputers=0;
 		if(isValideName(name)){
 			computers = computerService.findComputersByName(name);
-			numberOfComputers = computers.size();
+			numberOfComputers = computers.getNbComputer();
 			request.setAttribute("computers", computers);
 			request.setAttribute("numberOfComputers", numberOfComputers);
 			

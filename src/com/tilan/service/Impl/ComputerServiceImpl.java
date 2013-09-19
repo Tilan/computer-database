@@ -1,10 +1,9 @@
 package com.tilan.service.Impl;
 
-import java.util.List;
-
 import com.tilan.dao.ComputerDao;
 import com.tilan.dao.manager.DaoManager;
 import com.tilan.domain.Computer;
+import com.tilan.pagination.Pagination;
 import com.tilan.service.ComputerService;
 
 public class ComputerServiceImpl implements ComputerService{
@@ -16,13 +15,13 @@ public class ComputerServiceImpl implements ComputerService{
 	}
 	
 	@Override
-	public List<Computer> findAll() {
-		return computerDao.findAll();
+	public Pagination findAll(int debut, int taille) {
+		return computerDao.findAll(debut, taille);
 	}
 	
 	@Override
-	public List<Computer> findComputersByName (String name) {
-		return computerDao.findComputersByName (name);
+	public Pagination findComputersByName (String name, int debut, int taille) {
+		return computerDao.findComputersByName (name, debut, taille);
 	}
 
 	@Override
@@ -30,6 +29,16 @@ public class ComputerServiceImpl implements ComputerService{
 		computerDao.create(computer);
 		
 	}
+
+	@Override
+	public Pagination findAll() {
+		return findAll(0,0);
+	}
+
+	@Override
+	public Pagination findComputersByName(String name) {
+		return findComputersByName(name, 0, 0);	
+		}
 	
 
 }
