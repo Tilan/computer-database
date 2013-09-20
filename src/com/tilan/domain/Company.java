@@ -39,7 +39,12 @@ public class Company {
 		this.name = name;
 	} 
 	
-	public static class Builder {
+	
+	/**
+	 * It is implementing the Builder pattern that allows secure and easier build of company instances. 
+	 */
+	public static class Builder { 
+
 		private Computer computer;
 		
 		public Builder() {

@@ -5,6 +5,10 @@ import java.util.List;
 import com.tilan.domain.Computer;
 import com.tilan.pagination.Pagination;
 
+/**
+ * Handle the transition between the relational entity computer and the class object Computer using
+ *
+ */
 public interface ComputerDao {
 	
 	/**
@@ -38,33 +42,29 @@ public interface ComputerDao {
 	abstract Computer findComputerById (long id);
 	
 	/**
-	 * 
-	 * @param debut is the first element to display in the paginate list
-	 * @param taille permits to calc the last element to display in the paginate list
-	 * @return the pagination instance which contains the computers list and the informations needed to paginate
+	 *Called by the servlet, it permits to display the computer list, with only 15 elements per page
+	 *@param request two param in order to set the first and the max result
+	 *@return the pagination instance with the correct information 
 	 */
 	abstract Pagination findAll(int debut, int taille); 
 	
 	/**
-	 * 
-	 * @param numPage indicates the actual page Number
-	 * @param compParPage indicates the number of element to display on each page
-	 * @param attribute indicates the attribute to order the list
-	 * @return
+	 * Same as before but with an attribute which permits to order the list
+	 * @param attribute is the attribute on which we order the list
+	 * @return the ordered pagination instance
 	 */
-	
 	abstract Pagination findAll(int numPage, int compParPage, String attribute); 
-	
+
 	/**
-	 * 
-	 * @param name is the string to search
-	 * @param debut is the first element to display in the paginate list
-	 * @param taille permits to calc the last element to display in the paginate list
-	 * @return
+	 *Called by the servlet, it permits to display the computer list considering a filter from search, with only 15 elements per page
+	 *@param request two param in order to set the first and the max result
+	 *@param the name with which the filtering will be done
+	 *@return the pagination instance with the correct information 
 	 */
 	abstract Pagination findComputersByName (String name, int debut, int taille);
 	
+	@Deprecated
 	abstract Pagination findAll(); 
-
+	@Deprecated
 	abstract Pagination findComputersByName (String name);
 }

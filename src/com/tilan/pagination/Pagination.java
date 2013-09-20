@@ -1,6 +1,7 @@
 package com.tilan.pagination;
 
 import java.util.List;
+import com.tilan.domain.Computer;
 
 /**
  * It is the class we use everytime we need to paginate results
@@ -9,8 +10,6 @@ import java.util.List;
  * @param NB_COMPUTER_DEFAULT : set the default number of computer to display on a page
  * 
  */
-
-import com.tilan.domain.Computer;
 public class Pagination {
 	public static final int NB_COMPUTER_DEFAULT=15;
 	public static int nbComputer;
