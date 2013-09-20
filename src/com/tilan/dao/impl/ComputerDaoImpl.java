@@ -123,13 +123,13 @@ public class ComputerDaoImpl  implements ComputerDao {
 
 		@Override
 		public Pagination findAll() {
-			return findAll(0, 0);
+			return findAll(0, 15);
 		}
 
 		@Override
 		public Pagination findComputersByName(String name) {
 			
-			return findComputersByName(name, 0,0);
+			return findComputersByName(name, 0, 0);
 		}
 
 		@Override

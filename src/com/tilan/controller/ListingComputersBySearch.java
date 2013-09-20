@@ -25,7 +25,8 @@ public class ListingComputersBySearch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private ComputerService computerService;
-
+	private int numPage = 1;
+	private static final boolean PAGINER = true;
     public ListingComputersBySearch() {
         super();
         computerService = ServiceManager.INSTANCE.getComputerService();
@@ -37,16 +38,18 @@ public class ListingComputersBySearch extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Envoyer un objet dans la requete (la liste des computers)
 		String name = request.getParameter("search");
-		System.out.println( "SEARCH !!!!!!!!!!");
-		Pagination computers=null;
+		Pagination pagination=null;
+		Boolean search = true;
 		int numberOfComputers=0;
+		
 		if(isValideName(name)){
-			computers = computerService.findComputersByName(name);
-			numberOfComputers = computers.getNbComputer();
-			request.setAttribute("computers", computers);
+			pagination = computerService.findComputersByName(name, numPage, pagination.NB_COMPUTER_DEFAULT);
+			numberOfComputers = pagination.getNbComputer();
+			request.setAttribute("computers", pagination.getComputers());
+			request.setAttribute("numPage", numPage);
 			request.setAttribute("numberOfComputers", numberOfComputers);
-			
-			request.setAttribute("computers", computerService.findComputersByName(name));
+			request.setAttribute("isSearch", search);
+			request.setAttribute("search", name);
 			RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/WEB-INF/dashboard.jsp"));
 			rd.forward(request, response);
 		}

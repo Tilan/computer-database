@@ -24,7 +24,7 @@
 					<!-- Table header for Computer Name -->
 					<th><a href="<c:url value="listAllComputers.aspx?attribute=name"/>">Computer Name</a></th>
 					<!-- Table header for Introduced Date -->
-					<th><a href="<c:url value="listAllComputers.aspx?attribute=introduced"/>">Introduced Name</a></th>
+					<th><a href="<c:url value="listAllComputers.aspx?attribute=introduced"/>">Introduced Date</a></th>
 					<!-- Table header for Discontinued Date -->
 					<th><a href="<c:url value="listAllComputers.aspx?attribute=discontinued"/>">Discontinued Date</a></th>
 					<!-- Table header for Company -->
@@ -44,11 +44,17 @@
 			</tbody>
 		</table>
 		<ul>
-		<c:if test="${numPage > 1}">
+		<c:if test="${numPage > 1 && isSearch == false}">
 		<a href="listAllComputers.aspx?page=${numPage - 1}"><button style="background:none;" class="btn primary" type="button" value="next">Précédent</button></a>
 		</c:if>
-		<c:if test="${numPage < (requestScope.numberOfComputers/15)}">
+		<c:if test="${numPage < (requestScope.numberOfComputers/15) && isSearch == false}">
 		<a href="listAllComputers.aspx?page=${numPage + 1}"><button style="margin-left:20px; background:none;" class="btn primary" type="button" value="next">Suivant</button></a>
+		</c:if>
+		<c:if test="${numPage > 1 && isSearch == true}">
+		<a href="searchComputer?page=${numPage - 1}&search=${search}"><button style="background:none;" class="btn primary" type="button" value="next">Précédent</button></a>
+		</c:if>
+		<c:if test="${numPage < (requestScope.numberOfComputers/15) && isSearch == true}">
+		<a href="searchComputer?page=${numPage + 1}&search=${search}"><button style="margin-left:20px; background:none;" class="btn primary" type="button" value="next">Suivant</button></a>
 		</c:if>
 		</ul>
 </section>

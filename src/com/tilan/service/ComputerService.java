@@ -41,8 +41,8 @@ public interface ComputerService {
 		
 		abstract Pagination findComputersByName (String name, int debut, int taille);
 		
-		@Deprecated
+		
 		abstract Pagination findAll(); 
-		@Deprecated
+		
 		abstract Pagination findComputersByName (String name);
 }

@@ -57,8 +57,8 @@ public class ListingAllComputers extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		List<Computer> computers = null;
 		Pagination pagination= null;
+		Boolean search = false;
 		
 		if (request.getParameter("page") != null){
 			numPage = Integer.parseInt(request.getParameter("page"));
@@ -79,6 +79,7 @@ public class ListingAllComputers extends HttpServlet {
 		request.setAttribute("computers", pagination.getComputers());
 		request.setAttribute("numPage", numPage);
 		request.setAttribute("numberOfComputers", pagination.getNbComputer());
+		request.setAttribute("isSearch", search);
 		
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/WEB-INF/dashboard.jsp"));
 		rd.forward(request, response);
