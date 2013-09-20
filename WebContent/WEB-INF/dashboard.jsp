@@ -45,10 +45,10 @@
 		</table>
 		<ul>
 		<c:if test="${numPage > 1 && isSearch == false}">
-		<a href="listAllComputers.aspx?page=${numPage - 1}"><button style="background:none;" class="btn primary" type="button" value="next">Précédent</button></a>
+		<a href="listAllComputers.aspx?page=${numPage - 1}&attribute=${tri}"><button style="background:none;" class="btn primary" type="button" value="next">Précédent</button></a>
 		</c:if>
 		<c:if test="${numPage < (requestScope.numberOfComputers/15) && isSearch == false}">
-		<a href="listAllComputers.aspx?page=${numPage + 1}"><button style="margin-left:20px; background:none;" class="btn primary" type="button" value="next">Suivant</button></a>
+		<a href="listAllComputers.aspx?page=${numPage + 1}&attribute=${tri}"><button style="margin-left:20px; background:none;" class="btn primary" type="button" value="next">Suivant</button></a>
 		</c:if>
 		<c:if test="${numPage > 1 && isSearch == true}">
 		<a href="searchComputer?page=${numPage - 1}&search=${search}"><button style="background:none;" class="btn primary" type="button" value="next">Précédent</button></a>

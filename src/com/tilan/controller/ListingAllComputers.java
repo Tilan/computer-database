@@ -80,6 +80,7 @@ public class ListingAllComputers extends HttpServlet {
 		request.setAttribute("numPage", numPage);
 		request.setAttribute("numberOfComputers", pagination.getNbComputer());
 		request.setAttribute("isSearch", search);
+		request.setAttribute("tri", attribute);
 		
 		RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/WEB-INF/dashboard.jsp"));
 		rd.forward(request, response);
