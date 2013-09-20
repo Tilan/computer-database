@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -60,6 +62,9 @@ public class EditComputer extends HttpServlet {
 	}
 
 	/**
+	 * Called in the editComputer.jsp in order to delete or edit a computer
+	 * 
+	 * @param request : Contains the action done (Delete or Edit) 
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -68,46 +73,111 @@ public class EditComputer extends HttpServlet {
 		actionDone= request.getParameter("actionDone");
 		
 		if(actionDone.equals("Delete")){
+			//Delete computer instance on database
 			computerService.deleteComputerById(idComputerSelected);
+			
+	        //Return to the home page:
+			response.sendRedirect(response.encodeRedirectURL("listAllComputers.aspx"));
 		}
 		else if(actionDone.equals("Edit")){
+//			String resultat;
+	        Map<String, String> errors = new HashMap<String, String>();
 			
 			//Get the computer instance
 			Computer computer = computerService.findComputerById(idComputerSelected);
 			
-			//Get the edited attribute of the computer
+			//Get the edited attribute of the computer from the form
 			String name = request.getParameter("name");
 			String introducedS = request.getParameter("introduced");
 			String discontinuedS = request.getParameter("discontinued");
 			String companyValue = request.getParameter("company"); 
 			
-			java.util.Date introduced=null, discontinued=null;
-			try {
-	            introduced = new SimpleDateFormat("yyyy-MM-dd").parse(introducedS);
-	            discontinued = new SimpleDateFormat("yyyy-MM-dd").parse(discontinuedS);
-	        } catch (ParseException e) {
-	            System.err.println(e.getMessage());
-	        }
-			int company_id = Integer.parseInt(companyValue);
-			Company company = null ; 
+				//Validation of these retrieved values
 			
-			if(company_id>0){
-				company = companyService.findAll().get(company_id-1); 
+			try {
+				validationName(name);
+			} catch (Exception e1) {
+				errors.put( "name", e1.getMessage() );
 			}
 			
-            // Update the data of the current computer
-//            computer.setName(name);
-//            computer.setIntroduced(introduced);
-//            computer.setDiscontinued(discontinued);
-//            computer.setCompany(company);
-
-			computer= new Computer.Builder(computer).name(name).introduced(introduced).discontinued(discontinued).company(company).build(); 
-			computerService.update(computer); 
+			try {
+				validationIntroduced(introducedS);
+			} catch (Exception e1) {
+				errors.put( "introduced", e1.getMessage() );
+			}
+			
+			try {
+				validationDiscontinued(discontinuedS);
+			} catch (Exception e1) {
+				errors.put( "discontinued", e1.getMessage() );
+			}
+			
+	        if ( !errors.isEmpty() ) {
+	        	
+	    		request.setAttribute("computer", computer); 
+	    		request.setAttribute("companies", companyService.findAll());
+	        	request.setAttribute( "errors", errors );
+	        	
+	        	/* Transmit request/response to the JSP if the form is not valid */
+			    this.getServletContext().getRequestDispatcher("/WEB-INF/editComputer.jsp" ).forward( request, response );
+	            
+	        } else {
+	           
+		        //Dates
+				java.util.Date introduced=null, discontinued=null;
+				try {
+		            introduced = new SimpleDateFormat("yyyy-MM-dd").parse(introducedS);
+		            discontinued = new SimpleDateFormat("yyyy-MM-dd").parse(discontinuedS);
+		        } catch (ParseException e) {
+		            System.err.println(e.getMessage());
+		        }
+				
+				//Company
+				int company_id = Integer.parseInt(companyValue);
+				Company company = null ; 
+				if(company_id>0)
+					company = companyService.findAll().get(company_id-1); 
+				
+	            // Rebuild computer
+				computer= new Computer.Builder(computer).name(name).introduced(introduced).discontinued(discontinued).company(company).build(); 
+				
+				//Update data in database 
+				computerService.update(computer); 
+				
+			    response.sendRedirect(response.encodeRedirectURL("listAllComputers.aspx"));
+			}
+				
 		}
 		
-        // Return to the home page:
-		response.sendRedirect(response.encodeRedirectURL("listAllComputers.aspx"));
-		
+	}
+	
+	private void validationName(String name) throws Exception {
+		if (name != null && name.trim().length() != 0) {
+			return;
+		} else {
+			throw new Exception("Please enter a name");
+		}
+
+	}
+
+	private void validationIntroduced(String date) throws Exception {
+		if (date != null && date.trim().length() != 0) {
+			if (!date.matches("(\\d{4})[-](\\d{2})[-](\\d{2})")) {
+				throw new Exception("Please enter a valid introduced date");
+			}
+		} else {
+			throw new Exception("Please enter a introduced date");
+		}
+	}
+	
+	private void validationDiscontinued(String date) throws Exception {
+		if (date != null && date.trim().length() != 0) {
+			if (!date.matches("(\\d{4})[-](\\d{2})[-](\\d{2})")) {
+				throw new Exception("Please enter a valid discontinued date");
+			}
+		} else {
+			throw new Exception("Please enter a discontinued date");
+		}
 	}
 
 }

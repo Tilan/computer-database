@@ -20,66 +20,73 @@ import com.tilan.service.ComputerService;
 import com.tilan.service.manager.ServiceManager;
 
 /**
+ * 
  * Servlet implementation class addComputer
  */
 @WebServlet("/addComputer.aspx")
 public class AddComputer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
+
 	private ComputerService computerService;
 	private CompanyService companyService;
-	
-    public AddComputer() {
-        super();
-        computerService = ServiceManager.INSTANCE.getComputerService();
-        companyService = ServiceManager.INSTANCE.getCompanyService();
-    }
+
+	public AddComputer() {
+		super();
+		computerService = ServiceManager.INSTANCE.getComputerService();
+		companyService = ServiceManager.INSTANCE.getCompanyService();
+	}
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("companies", companyService.findAll());
-		RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/WEB-INF/addComputer.jsp"));
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(
+				response.encodeURL("/WEB-INF/addComputer.jsp"));
 		rd.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+
 		String name = request.getParameter("name");
 		String introducedS = request.getParameter("introduced");
 		String discontinuedS = request.getParameter("discontinued");
-		String companyValue = request.getParameter("company"); 
-		
-		java.util.Date introduced=null, discontinued=null;
+		String companyValue = request.getParameter("company");
+
+		java.util.Date introduced = null, discontinued = null;
 		try {
-            introduced = new SimpleDateFormat("yyyy-MM-dd").parse(introducedS);
-            discontinued = new SimpleDateFormat("yyyy-MM-dd").parse(discontinuedS);
-        } catch (ParseException e) {
-            System.err.println(e.getMessage());
-        }
-		
-		
-		
+			introduced = new SimpleDateFormat("yyyy-MM-dd").parse(introducedS);
+			discontinued = new SimpleDateFormat("yyyy-MM-dd")
+					.parse(discontinuedS);
+		} catch (ParseException e) {
+			System.err.println(e.getMessage());
+		}
+
 		int company_id = Integer.parseInt(companyValue);
-		Company company = null ; 
-		if(company_id>0){
-			company = companyService.findAll().get(company_id-1); 
+		Company company = null;
+		if (company_id > 0) {
+			company = companyService.findAll().get(company_id - 1);
 		}
-		
-		if(name!=null&& !name.isEmpty()){
-			computerService.create(new Computer.Builder().name(name).introduced(introduced).discontinued(discontinued).company(company).build());
+
+		if (name != null && !name.isEmpty()) {
+			computerService.create(new Computer.Builder().name(name)
+					.introduced(introduced).discontinued(discontinued)
+					.company(company).build());
 		}
-		else 
-			System.out.println("Le nom saisie est vide");
-		
+
 		request.setAttribute("computers", computerService.findAll());
-		RequestDispatcher rd = getServletContext().getRequestDispatcher(response.encodeURL("/WEB-INF/dashboard.jsp"));
+		RequestDispatcher rd = getServletContext().getRequestDispatcher(
+				response.encodeURL("/WEB-INF/dashboard.jsp"));
 		rd.forward(request, response);
 	}
+
+
 
 }

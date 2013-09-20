@@ -9,29 +9,32 @@
 	<form action="editComputer" method="POST">
 		<fieldset>
 			<div class="clearfix">
-				<label for="name">Computer name:</label>
+				<label for="name">Computer name *: </label>
 				<div class="input">
 					<input type="text" name="name" value="${computer.name}"/>
 					<span class="help-inline">Required</span>
+					<span class="erreur">${errors['name']}</span>
 				</div>
 			</div>
 	
 			<div class="clearfix">
-				<label for="introduced">Introduced date:</label>
+				<label for="introduced">Introduced date *:</label>
 				<div class="input">
-					<input type="date" name="introduced" pattern="YYYY-MM-dd" value="${computer.introduced}"/>
+					<input type="date" name="introduced" pattern="YYYY-MM-dd" value="${computer.introducedFormatted}"> 
 					<span class="help-inline">YYYY-MM-DD</span>
+					<span class="erreur">${errors['introduced']}</span>
 				</div>
 			</div>
 			<div class="clearfix">
-				<label for="discontinued">Discontinued date:</label>
+				<label for="discontinued">Discontinued date *: </label>
 				<div class="input">
-					<input type="date" name="discontinued" pattern="YYYY-MM-dd" value="${computer.discontinued}"/>
+					<input type="date" name="discontinued" pattern="YYYY-MM-dd" value="${computer.discontinuedFormatted}"/>
 					<span class="help-inline">YYYY-MM-DD</span>
+					<span class="erreur">${errors['discontinued']}</span>
 				</div>
 			</div>
 			<div class="clearfix">
-				<label for="company">Company Name:</label>
+				<label for="company">Company Name :</label>
 				<div class="input">
 					<select name="company">
 						<option value = 0> ${computer.company.name} </option>
@@ -47,7 +50,7 @@
 		<div class="actions">
 			<input type="submit" value="Edit" class="btn primary" name="actionDone">
 			<input type="submit" value="Delete" class="btn primary" name="actionDone">
-			or <a href="listAllComputers" class="btn">Cancel</a>
+			or <a href="listAllComputers.aspx" class="btn">Cancel</a>
 		</div>
 	</form>
 </section>

@@ -141,49 +141,28 @@ public class ComputerDaoImpl  implements ComputerDao {
 			}
 			
 		}
-		@Override
-	    public void update(Computer computer) {
-	        EntityManager em = null;
-	        try {
-	            em = DaoManager.INSTANCE.getEntityManager();
-	            em.getTransaction().begin();
-	            Computer comp = em.find(Computer.class, computer.getId());
 
-	            comp.setName(computer.getName());
-	            comp.setIntroduced(computer.getIntroduced());
-	            comp.setDiscontinued(computer.getDiscontinued());
-	            comp.setCompany(computer.getCompany());
-
-	            em.getTransaction().commit();
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        } finally {
-	            if (em != null)
-	                em.close();
-	        }
-	    }
 		
-//		@Override
-//		public void update(Computer computer) {
-//			EntityManager em = null;
-//			try {
-//				//Recuperation de l'entityManager qui gere la connexion a la BD
-//				em = DaoManager.INSTANCE.getEntityManager();
-//				
-//				//Debut de transaction (obligatoire pour des operations d'ecriture sur la BD)
-//				em.getTransaction().begin();
-//				
-//				//Merge du computer
-//				em.merge(computer);	
-//				
-//				//Commit de la transaction = on applique toutes les operations ci dessus
-//				em.getTransaction().commit();
-//			} catch(Exception e) {
-//				e.printStackTrace();
-//			} finally {
-//				if(em != null)
-//					em.close();
-//			}
-//			
-//		}
+		public void update(Computer computer) {
+			EntityManager em = null;
+			try {
+				//Recuperation de l'entityManager qui gere la connexion a la BD
+				em = DaoManager.INSTANCE.getEntityManager();
+				
+				//Debut de transaction (obligatoire pour des operations d'ecriture sur la BD)
+				em.getTransaction().begin();
+				
+				//Merge du computer
+				em.merge(computer);	
+				
+				//Commit de la transaction = on applique toutes les operations ci dessus
+				em.getTransaction().commit();
+			} catch(Exception e) {
+				e.printStackTrace();
+			} finally {
+				if(em != null)
+					em.close();
+			}
+			
+		}
 }
