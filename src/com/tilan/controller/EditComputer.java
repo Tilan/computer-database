@@ -46,9 +46,10 @@ public class EditComputer extends HttpServlet {
 	/**
 	 * Called when a user click on the name of a computer in the dashboard.jsp
 	 * 
-	 * @param request : 
-	 * Contains the id of the selected computer
-	 * Obtain the computer instance to be modified and the list of companies 
+	 * @param request : Contains the id of the selected computer
+	 * 
+	 * @return : The computer instance to be modified and the list of companies to the editComputer.jsp
+	 * 
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String idComputerSelectedS = request.getParameter("idComputerSelected");
@@ -70,6 +71,8 @@ public class EditComputer extends HttpServlet {
 	 * Called in the editComputer.jsp in order to delete or edit a computer
 	 * 
 	 * @param request : Contains the action done (Delete or Edit) 
+	 * 
+	 * @return : the editComputer.jsp if the form wasn't valid
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		

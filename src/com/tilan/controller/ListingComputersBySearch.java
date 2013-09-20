@@ -37,6 +37,7 @@ public class ListingComputersBySearch extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Envoyer un objet dans la requete (la liste des computers)
 		String name = request.getParameter("search");
+		System.out.println( "SEARCH !!!!!!!!!!");
 		Pagination computers=null;
 		int numberOfComputers=0;
 		if(isValideName(name)){

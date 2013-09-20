@@ -22,11 +22,10 @@ import com.tilan.service.ComputerService;
 import com.tilan.service.manager.ServiceManager;
 
 /**
- * Servlet implementation class EditComputer 
+ * Servlet implementation class AddComputer 
  * 
- * Allow the user to edit a computer.
+ * Allows the user to create and add a computer in the database
  * The servlet is checking the inputs entered.
- * The computer edited will be merged into the database.
  */
 @WebServlet("/addComputer")
 public class AddComputer extends HttpServlet {
@@ -41,10 +40,13 @@ public class AddComputer extends HttpServlet {
 		companyService = ServiceManager.INSTANCE.getCompanyService();
 	}
 
+	
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * Called when a user click on the "add computer" button in the dashboard.jsp
+	 * 
+	 * @return the list of companies to addComputer.jsp
 	 */
+	
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		request.setAttribute("companies", companyService.findAll());
@@ -54,8 +56,12 @@ public class AddComputer extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * 
+	 * Called when the user submit the form on the addComputer.jsp
+	 * 
+	 * @param request : get the attribute of the computer being created.
+	 * 
+	 * @return : the addComputer.jsp if the form wasn't valid
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
