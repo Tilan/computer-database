@@ -42,6 +42,33 @@ public class ComputerDaoImpl  implements ComputerDao {
 			return pagination;
 		}
 		
+		@Override
+		public Pagination findAll(int debut, int taille, String attribut) {
+
+			EntityManager em = null;
+			Pagination pagination = null;
+			String queryS=null; 
+			Query query=null; 
+
+			try {
+				em = DaoManager.INSTANCE.getEntityManager();
+				queryS= "SELECT comp FROM Computer comp ORDER BY comp." + attribut + " DESC";
+				query = em.createQuery(queryS);
+				Pagination.setNbComputer(query.getResultList().size());
+				if (taille > 0) {
+	                query.setFirstResult((debut-1)*taille);
+	                query.setMaxResults(taille);
+	            }
+				pagination = new Pagination(query.getResultList());
+			} catch(Exception e) {
+				e.printStackTrace();
+			} finally {
+				if(em != null)
+					em.close();
+			}
+			return pagination;
+		}
+		
 		public Pagination findComputersByName(String name, int debut, int taille) {
 
 			EntityManager em = null;
@@ -165,4 +192,6 @@ public class ComputerDaoImpl  implements ComputerDao {
 			}
 			
 		}
+
+
 }

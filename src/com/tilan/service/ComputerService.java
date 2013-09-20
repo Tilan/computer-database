@@ -12,5 +12,7 @@ public interface ComputerService {
 		abstract Computer findComputerById (long id);
 		abstract Pagination findComputersByName (String name, int debut, int taille);
 		abstract void deleteComputerById(long id);
-		abstract void update(Computer computer); 
+		abstract void update(Computer computer);
+		abstract Pagination findAll(int numPage, int compParPage,
+				String attribute); 
 }

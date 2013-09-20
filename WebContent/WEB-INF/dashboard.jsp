@@ -22,7 +22,7 @@
 				<tr>
 					<!-- Variable declarations for passing labels as parameters -->
 					<!-- Table header for Computer Name -->
-					<th>Computer Name</th>
+					<th><a href="<c:url value="listAllComputers.aspx?attribute=name"/>">Computer Name</a></th>
 					<th>Introduced Date</th>
 					<!-- Table header for Discontinued Date -->
 					<th>Discontinued Date</th>

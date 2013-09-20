@@ -55,5 +55,10 @@ public class ComputerServiceImpl implements ComputerService{
 		
 	}
 
+	@Override
+	public Pagination findAll(int numPage, int compParPage, String attribute) {
+		return computerDao.findAll(numPage, compParPage, attribute);
+	}
+
 
 }

@@ -32,6 +32,9 @@ public class ListingAllComputers extends HttpServlet {
 
 	private int numPage = 1;	//Numéro de page, 1 par défaut
 	private int compParPage = 15; //Nombre de résultat par page, 15 par défaut
+	private String attribute=null; // Attribute of Computer that will sort the computer's list
+	
+	
     public ListingAllComputers() {
         super();
         computerService = ServiceManager.INSTANCE.getComputerService();
@@ -43,14 +46,23 @@ public class ListingAllComputers extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Envoyer un objet dans la requete (la liste des computers)
 		List<Computer> computers = null;
-		Pagination pagination;
+		Pagination pagination= null;
+		int numberOfComputers = pagination.getNbComputer();
+		
 		//Récuparation du numéro de la page
 		if (request.getParameter("page") != null){
 			numPage = Integer.parseInt(request.getParameter("page"));
 		}
+		attribute = request.getParameter("attribute"); 
 		
-		pagination = computerService.findAll(numPage,compParPage);
-		int numberOfComputers = pagination.getNbComputer();
+		if(attribute==null)
+			pagination = computerService.findAll(numPage,compParPage);
+		else if (attribute.equals("name")){
+			pagination = computerService.findAll(numPage,compParPage,attribute);
+			System.out.println("attribute.equals(name)");
+		}
+			
+		
 		request.setAttribute("computers", pagination.getComputers());
 		request.setAttribute("numPage", numPage);
 		request.setAttribute("numberOfComputers", numberOfComputers);
