@@ -35,9 +35,30 @@ public interface ComputerService {
 		 */
 		abstract Computer findComputerById (long id);
 		
+		/**
+		 * 
+		 * @param debut : first element to display
+		 * @param taille : defines the last element to display
+		 * @return pagination instance with the information for paginate
+		 */
 		abstract Pagination findAll(int debut, int taille); 
 		
+		/**
+		 * 
+		 * @param numPage is the current page
+		 * @param compParPage is the number of element to display per page
+		 * @param attribute is the attribute on which to order
+		 * @return pagination instance with the information for paginate
+		 */
+		
 		abstract Pagination findAll(int numPage, int compParPage, String attribute); 
+		/**
+		 * 
+		 * @param name to search
+		 * @param debut of the element to display
+		 * @param taille defines the last element to display
+		 * @return pagination instance with the information for paginate
+		 */
 		
 		abstract Pagination findComputersByName (String name, int debut, int taille);
 		

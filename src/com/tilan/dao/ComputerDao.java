@@ -37,10 +37,31 @@ public interface ComputerDao {
 	 */
 	abstract Computer findComputerById (long id);
 	
+	/**
+	 * 
+	 * @param debut is the first element to display in the paginate list
+	 * @param taille permits to calc the last element to display in the paginate list
+	 * @return the pagination instance which contains the computers list and the informations needed to paginate
+	 */
 	abstract Pagination findAll(int debut, int taille); 
+	
+	/**
+	 * 
+	 * @param numPage indicates the actual page Number
+	 * @param compParPage indicates the number of element to display on each page
+	 * @param attribute indicates the attribute to order the list
+	 * @return
+	 */
 	
 	abstract Pagination findAll(int numPage, int compParPage, String attribute); 
 	
+	/**
+	 * 
+	 * @param name is the string to search
+	 * @param debut is the first element to display in the paginate list
+	 * @param taille permits to calc the last element to display in the paginate list
+	 * @return
+	 */
 	abstract Pagination findComputersByName (String name, int debut, int taille);
 	
 	abstract Pagination findAll(); 

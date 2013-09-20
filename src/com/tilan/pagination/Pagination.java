@@ -2,6 +2,14 @@ package com.tilan.pagination;
 
 import java.util.List;
 
+/**
+ * It is the class we use everytime we need to paginate results
+ * @param nbComputer : total of computer corresponding to the search or total list if not in a search
+ * @param computers: the computer list corresponding to the search or the full list if not in a search
+ * @param NB_COMPUTER_DEFAULT : set the default number of computer to display on a page
+ * 
+ */
+
 import com.tilan.domain.Computer;
 public class Pagination {
 	public static final int NB_COMPUTER_DEFAULT=15;

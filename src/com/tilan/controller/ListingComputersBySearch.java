@@ -33,7 +33,9 @@ public class ListingComputersBySearch extends HttpServlet {
     }
 
 	/**
-	 * La methode doGet est executee lorsqu'un client execute l'URI UserServlet
+	 * Called when client used Search button
+	 * @param request: contains the string to search in database
+	 * @return the list of computers which includes the searched string
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//Envoyer un objet dans la requete (la liste des computers)

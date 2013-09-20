@@ -42,6 +42,12 @@ public class ComputerDaoImpl  implements ComputerDao {
 			}
 		}				
 		
+		/**
+		 *Called by the servlet, it permits to display the computer list, with only 15 elements per page
+		 *@param request two param in order to set the first and the max result
+		 *@return the pagination instance with the correct information 
+		 */
+		
 		@Override
 		public Pagination findAll(int debut, int taille) {
 
@@ -67,6 +73,11 @@ public class ComputerDaoImpl  implements ComputerDao {
 			return pagination;
 		}
 		
+		/**
+		 * Same as before but with an attribute which permits to order the list
+		 * @param attribute is the attribute on which we order the list
+		 * @return the ordered pagination instance
+		 */
 		@Override
 		public Pagination findAll(int debut, int taille, String attribute) {
 
