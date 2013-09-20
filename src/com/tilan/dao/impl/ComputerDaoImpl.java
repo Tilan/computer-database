@@ -43,7 +43,7 @@ public class ComputerDaoImpl  implements ComputerDao {
 		}
 		
 		@Override
-		public Pagination findAll(int debut, int taille, String attribut) {
+		public Pagination findAll(int debut, int taille, String attribute) {
 
 			EntityManager em = null;
 			Pagination pagination = null;
@@ -52,7 +52,7 @@ public class ComputerDaoImpl  implements ComputerDao {
 
 			try {
 				em = DaoManager.INSTANCE.getEntityManager();
-				queryS= "SELECT comp FROM Computer comp ORDER BY comp." + attribut + " DESC";
+				queryS= "SELECT comp FROM Computer comp ORDER BY comp." + attribute + " ASC";
 				query = em.createQuery(queryS);
 				Pagination.setNbComputer(query.getResultList().size());
 				if (taille > 0) {

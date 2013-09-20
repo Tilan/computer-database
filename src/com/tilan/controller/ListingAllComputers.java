@@ -47,7 +47,7 @@ public class ListingAllComputers extends HttpServlet {
 		//Envoyer un objet dans la requete (la liste des computers)
 		List<Computer> computers = null;
 		Pagination pagination= null;
-		int numberOfComputers = pagination.getNbComputer();
+		
 		
 		//Récuparation du numéro de la page
 		if (request.getParameter("page") != null){
@@ -59,9 +59,18 @@ public class ListingAllComputers extends HttpServlet {
 			pagination = computerService.findAll(numPage,compParPage);
 		else if (attribute.equals("name")){
 			pagination = computerService.findAll(numPage,compParPage,attribute);
-			System.out.println("attribute.equals(name)");
 		}
-			
+		else if (attribute.equals("introduced")){
+			pagination = computerService.findAll(numPage,compParPage,attribute);
+		}
+		else if (attribute.equals("discontinued")){
+			pagination = computerService.findAll(numPage,compParPage,attribute);
+		}
+		else if (attribute.equals("company")){
+			pagination = computerService.findAll(numPage,compParPage,attribute+".name");
+		}
+		
+		int numberOfComputers = pagination.getNbComputer();
 		
 		request.setAttribute("computers", pagination.getComputers());
 		request.setAttribute("numPage", numPage);
