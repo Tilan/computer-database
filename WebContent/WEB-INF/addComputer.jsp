@@ -12,7 +12,7 @@
 				<label for="name">Computer name:</label>
 				<div class="input">
 					<input type="text" name="name" />
-					<span class="help-inline">Required</span>
+					<span class="erreur">${errors['name']}</span>
 				</div>
 			</div>
 	
@@ -21,6 +21,8 @@
 				<div class="input">
 					<input type="date" name="introduced" pattern="YYYY-MM-dd"/>
 					<span class="help-inline">YYYY-MM-DD</span>
+					<span class="erreur">${errors['introduced']}</span>
+					
 				</div>
 			</div>
 			<div class="clearfix">
@@ -28,6 +30,8 @@
 				<div class="input">
 					<input type="date" name="discontinued" pattern="YYYY-MM-dd"/>
 					<span class="help-inline">YYYY-MM-DD</span>
+					<span class="erreur">${errors['discontinued']}</span>
+					
 				</div>
 			</div>
 			<div class="clearfix">

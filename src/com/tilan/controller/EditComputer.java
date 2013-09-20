@@ -22,7 +22,11 @@ import com.tilan.service.ComputerService;
 import com.tilan.service.manager.ServiceManager;
 
 /**
- * Servlet implementation class addComputer
+ * Servlet implementation class EditComputer 
+ * 
+ * Allow the user to edit a computer.
+ * The servlet is checking the inputs entered.
+ * The computer edited will be merged into the database.
  */
 @WebServlet("/editComputer")
 public class EditComputer extends HttpServlet {
@@ -42,8 +46,9 @@ public class EditComputer extends HttpServlet {
 	/**
 	 * Called when a user click on the name of a computer in the dashboard.jsp
 	 * 
-	 * @param request : get the computer instance to be modified and the list of companies 
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @param request : 
+	 * Contains the id of the selected computer
+	 * Obtain the computer instance to be modified and the list of companies 
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String idComputerSelectedS = request.getParameter("idComputerSelected");
@@ -65,7 +70,6 @@ public class EditComputer extends HttpServlet {
 	 * Called in the editComputer.jsp in order to delete or edit a computer
 	 * 
 	 * @param request : Contains the action done (Delete or Edit) 
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
@@ -80,7 +84,7 @@ public class EditComputer extends HttpServlet {
 			response.sendRedirect(response.encodeRedirectURL("listAllComputers.aspx"));
 		}
 		else if(actionDone.equals("Edit")){
-//			String resultat;
+			//errors will contain all the eventual message error to be transmitted to the JSP from the validation process
 	        Map<String, String> errors = new HashMap<String, String>();
 			
 			//Get the computer instance
@@ -112,8 +116,9 @@ public class EditComputer extends HttpServlet {
 				errors.put( "discontinued", e1.getMessage() );
 			}
 			
-	        if ( !errors.isEmpty() ) {
+	        if ( !errors.isEmpty() ) {// If the form failed 
 	        	
+	        	//Display the computer before the wrong modification with the corresponding error message(s)
 	    		request.setAttribute("computer", computer); 
 	    		request.setAttribute("companies", companyService.findAll());
 	        	request.setAttribute( "errors", errors );
@@ -123,7 +128,7 @@ public class EditComputer extends HttpServlet {
 	            
 	        } else {
 	           
-		        //Dates
+		        //Retrieve dates
 				java.util.Date introduced=null, discontinued=null;
 				try {
 		            introduced = new SimpleDateFormat("yyyy-MM-dd").parse(introducedS);
@@ -132,14 +137,14 @@ public class EditComputer extends HttpServlet {
 		            System.err.println(e.getMessage());
 		        }
 				
-				//Company
+				//Retrieve company
 				int company_id = Integer.parseInt(companyValue);
 				Company company = null ; 
 				if(company_id>0)
 					company = companyService.findAll().get(company_id-1); 
 				
 	            // Rebuild computer
-				computer= new Computer.Builder(computer).name(name).introduced(introduced).discontinued(discontinued).company(company).build(); 
+				computer= new Computer.Builder(computer).name(name.trim()).introduced(introduced).discontinued(discontinued).company(company).build(); 
 				
 				//Update data in database 
 				computerService.update(computer); 
@@ -151,6 +156,11 @@ public class EditComputer extends HttpServlet {
 		
 	}
 	
+	/**
+	 *Check if the name is not empty
+	 * 
+	 *@param name : Name to be validated
+	 */
 	private void validationName(String name) throws Exception {
 		if (name != null && name.trim().length() != 0) {
 			return;
@@ -159,6 +169,12 @@ public class EditComputer extends HttpServlet {
 		}
 
 	}
+	
+	/**
+	 * Check if the introduced date is not empty or not valid
+	 * 
+	 * @param date : Date to be validated
+	 */
 
 	private void validationIntroduced(String date) throws Exception {
 		if (date != null && date.trim().length() != 0) {
@@ -169,6 +185,12 @@ public class EditComputer extends HttpServlet {
 			throw new Exception("Please enter a introduced date");
 		}
 	}
+	
+	/**
+	 * Check if the discontinued date is not empty or not valid
+	 * 
+	 * @param date : Date to be validated
+	 */
 	
 	private void validationDiscontinued(String date) throws Exception {
 		if (date != null && date.trim().length() != 0) {

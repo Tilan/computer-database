@@ -20,7 +20,7 @@ import com.tilan.service.manager.ServiceManager;
  * Servlet implementation class UserServlet
  */
 
-@WebServlet("/searchComputer.aspx")
+@WebServlet("/searchComputer")
 public class ListingComputersBySearch extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 

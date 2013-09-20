@@ -12,7 +12,6 @@
 				<label for="name">Computer name *: </label>
 				<div class="input">
 					<input type="text" name="name" value="${computer.name}"/>
-					<span class="help-inline">Required</span>
 					<span class="erreur">${errors['name']}</span>
 				</div>
 			</div>

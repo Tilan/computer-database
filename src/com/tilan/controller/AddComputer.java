@@ -4,7 +4,9 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,10 +22,13 @@ import com.tilan.service.ComputerService;
 import com.tilan.service.manager.ServiceManager;
 
 /**
+ * Servlet implementation class EditComputer 
  * 
- * Servlet implementation class addComputer
+ * Allow the user to edit a computer.
+ * The servlet is checking the inputs entered.
+ * The computer edited will be merged into the database.
  */
-@WebServlet("/addComputer.aspx")
+@WebServlet("/addComputer")
 public class AddComputer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -54,37 +59,119 @@ public class AddComputer extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
+		//errors will contain all the eventual message error to be transmitted to the JSP from the validation process
+		Map<String, String> errors = new HashMap<String, String>();
+        
+		//Get the edited attribute of the computer from the form
 		String name = request.getParameter("name");
 		String introducedS = request.getParameter("introduced");
 		String discontinuedS = request.getParameter("discontinued");
 		String companyValue = request.getParameter("company");
+		
+		Computer temp = new Computer.Builder().build(); 
 
-		java.util.Date introduced = null, discontinued = null;
+			//Validation of these retrieved values
 		try {
-			introduced = new SimpleDateFormat("yyyy-MM-dd").parse(introducedS);
-			discontinued = new SimpleDateFormat("yyyy-MM-dd")
-					.parse(discontinuedS);
-		} catch (ParseException e) {
-			System.err.println(e.getMessage());
+			validationName(name);
+		} catch (Exception e1) {
+			errors.put( "name", e1.getMessage() );
+		}
+		
+		try {
+			validationIntroduced(introducedS);
+		} catch (Exception e1) {
+			errors.put( "introduced", e1.getMessage() );
+		}
+		
+		try {
+			validationDiscontinued(discontinuedS);
+		} catch (Exception e1) {
+			errors.put( "discontinued", e1.getMessage() );
+		}
+		
+		 if ( !errors.isEmpty() ) {// If the form is not valid
+	        	
+	        	//Display the computer state before the wrong modification with the corresponding error message(s)
+	    		request.setAttribute("companies", companyService.findAll());
+	        	request.setAttribute( "errors", errors );
+	        	
+	        	/* Transmit request/response to the JSP if the form is not valid */
+	        	RequestDispatcher rd = getServletContext().getRequestDispatcher(
+	    				response.encodeURL("/WEB-INF/addComputer.jsp"));
+	    		rd.forward(request, response);
+		 }
+		 else{
+			 
+		    //Retrieve dates
+			java.util.Date introduced = null, discontinued = null;
+			try {
+				introduced = new SimpleDateFormat("yyyy-MM-dd").parse(introducedS);
+				discontinued = new SimpleDateFormat("yyyy-MM-dd").parse(discontinuedS);
+			} catch (ParseException e) {
+				System.err.println(e.getMessage());
+			}
+			
+			//Retrieve company
+			int company_id = Integer.parseInt(companyValue);
+			Company company = null;
+			if (company_id > 0) 
+				company = companyService.findAll().get(company_id - 1);
+	
+			//Add computer on the database
+			computerService.create(new Computer.Builder()
+						.name(name.trim())
+						.introduced(introduced).discontinued(discontinued)
+						.company(company).build());
+	
+			response.sendRedirect(response.encodeRedirectURL("listAllComputers.aspx"));
+		}
+	}
+	
+	
+	/**
+	 *Check if the name is not empty
+	 * 
+	 *@param name : Name to be validated
+	 */
+	private void validationName(String name) throws Exception {
+		if (name != null && name.trim().length() != 0) {
+			return;
+		} else {
+			throw new Exception("Please enter a name");
 		}
 
-		int company_id = Integer.parseInt(companyValue);
-		Company company = null;
-		if (company_id > 0) {
-			company = companyService.findAll().get(company_id - 1);
-		}
+	}
+	
+	/**
+	 * Check if the introduced date is not empty or not valid
+	 * 
+	 * @param date : Date to be validated
+	 */
 
-		if (name != null && !name.isEmpty()) {
-			computerService.create(new Computer.Builder().name(name)
-					.introduced(introduced).discontinued(discontinued)
-					.company(company).build());
+	private void validationIntroduced(String date) throws Exception {
+		if (date != null && date.trim().length() != 0) {
+			if (!date.matches("(\\d{4})[-](\\d{2})[-](\\d{2})")) {
+				throw new Exception("Please enter a valid introduced date");
+			}
+		} else {
+			throw new Exception("Please enter a introduced date");
 		}
-
-		request.setAttribute("computers", computerService.findAll());
-		RequestDispatcher rd = getServletContext().getRequestDispatcher(
-				response.encodeURL("/WEB-INF/dashboard.jsp"));
-		rd.forward(request, response);
+	}
+	
+	/**
+	 * Check if the discontinued date is not empty or not valid
+	 * 
+	 * @param date : Date to be validated
+	 */
+	
+	private void validationDiscontinued(String date) throws Exception {
+		if (date != null && date.trim().length() != 0) {
+			if (!date.matches("(\\d{4})[-](\\d{2})[-](\\d{2})")) {
+				throw new Exception("Please enter a valid discontinued date");
+			}
+		} else {
+			throw new Exception("Please enter a discontinued date");
+		}
 	}
 
 
