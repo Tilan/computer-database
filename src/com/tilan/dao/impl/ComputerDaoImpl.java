@@ -13,10 +13,35 @@ import com.tilan.pagination.Pagination;
 public class ComputerDaoImpl  implements ComputerDao {
 
 		public ComputerDaoImpl() {
-
 		}
 
 		@SuppressWarnings("unchecked")
+		
+		
+		@Override
+		public void create(Computer computer) {
+
+			EntityManager em = null;
+			try {
+				//Retrieves the DAO entityManager that handle the connection to the DB
+				em = DaoManager.INSTANCE.getEntityManager();
+				
+				//Begin the transaction (compulsory for the writing operation on the DB)
+				em.getTransaction().begin();
+				
+				//Save of the computer
+				em.persist(computer);
+				
+				//Commit of the transaction (and all the operations that it contained) 
+				em.getTransaction().commit();
+			} catch(Exception e) {
+				e.printStackTrace();
+			} finally {
+				if(em != null)
+					em.close();
+			}
+		}				
+		
 		@Override
 		public Pagination findAll(int debut, int taille) {
 
@@ -97,29 +122,6 @@ public class ComputerDaoImpl  implements ComputerDao {
 		}
 
 		@Override
-		public void create(Computer computer) {
-
-			EntityManager em = null;
-			try {
-				//Recuperation de l'entityManager qui gere la connexion a la BD
-				em = DaoManager.INSTANCE.getEntityManager();
-				//Debut de transaction (obligatoire pour des operations d'ecriture sur la BD)
-				em.getTransaction().begin();
-				
-				//Sauvegarde de l'utilisateur
-				em.persist(computer);
-				
-				//Commit de la transaction = on applique toutes les operations ci dessus
-				em.getTransaction().commit();
-			} catch(Exception e) {
-				e.printStackTrace();
-			} finally {
-				if(em != null)
-					em.close();
-			}
-		}
-
-		@Override
 		public Pagination findAll() {
 			return findAll(0, 0);
 		}
@@ -173,16 +175,13 @@ public class ComputerDaoImpl  implements ComputerDao {
 		public void update(Computer computer) {
 			EntityManager em = null;
 			try {
-				//Recuperation de l'entityManager qui gere la connexion a la BD
+
 				em = DaoManager.INSTANCE.getEntityManager();
 				
-				//Debut de transaction (obligatoire pour des operations d'ecriture sur la BD)
 				em.getTransaction().begin();
 				
-				//Merge du computer
 				em.merge(computer);	
 				
-				//Commit de la transaction = on applique toutes les operations ci dessus
 				em.getTransaction().commit();
 			} catch(Exception e) {
 				e.printStackTrace();

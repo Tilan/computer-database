@@ -20,11 +20,4 @@ public class CompanyServiceImpl implements CompanyService{
 		return companyDao.findAll();
 	}
 
-	@Override
-	public void create(Company company) {
-		companyDao.create(company);
-		
-	}
-	
-
 }

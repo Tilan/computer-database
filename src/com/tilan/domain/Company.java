@@ -9,9 +9,12 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 
+/**
+ * It is the class representing the equivalent of the company entity in the object world.
+ * It is using the Hibernate libraries to handle the object-relational mapping 
+ */
 @Entity
 @Table(name = "company")
-@NamedQuery(name = "findAllCompagnies", query = "Select c From Company c")
 public class Company {
 	@Id
 	@GeneratedValue

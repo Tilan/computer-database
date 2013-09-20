@@ -11,21 +11,18 @@ import com.tilan.domain.Company;
 public class CompanyDaoImpl  implements CompanyDao {
 
 		public CompanyDaoImpl() {
-
 		}
-
 		@SuppressWarnings("unchecked")
+		
 		@Override
 		public List<Company> findAll() {
 
 			EntityManager em = null;
-
 			List<Company> compagnies = null;
 
 			try {
 				em = DaoManager.INSTANCE.getEntityManager();
-				//Ici on appelle la namedQuery declaree en annotation dans la classe domain.User
-				compagnies = em.createNamedQuery("findAllCompagnies").getResultList();
+				compagnies = em.createQuery("Select c From Company c").getResultList();
 			} catch(Exception e) {
 				e.printStackTrace();
 			} finally {
@@ -35,7 +32,4 @@ public class CompanyDaoImpl  implements CompanyDao {
 			return compagnies;
 		}
 
-		@Override
-		public void create(Company company) {
-		}
 }

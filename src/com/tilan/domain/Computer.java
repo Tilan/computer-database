@@ -16,7 +16,10 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-
+/**
+ * It is the class representing the equivalent of the computer entity in the object world.
+ * It is using the Hibernate libraries to handle the object-relational mapping 
+ */
 
 @Entity
 @Table(name = "computer")
@@ -82,8 +85,10 @@ public class Computer {
 	
 	public String getDateInNiceStringFormat(Date date) 
 	/**
-	 * @author Christop
-	 * @returns La date entrée à un format yyyy-MM-dd en string
+	 * Change a date into a nice string format (yyyy-MM-dd )
+	 * 
+	 * @param date to by formatted
+	 * @return The input date in a format yyyy-MM-dd (String type) 
 	 */
 	{
 		String dateS=null; 
@@ -112,6 +117,9 @@ public class Computer {
 		this.company = company;
 	}  
 	
+	/**
+	 * It is implementing the Builder pattern that allows secure and easier build of company instances. 
+	 */
 	public static class Builder {
 		private Computer computer;
 		
