@@ -59,6 +59,5 @@ Le code est plus propre que dans le code java, même si vous avez quand même pa
 -------------------------
 Bilan: 
 -------------------------
-Très bon projet, à part les quelques erreurs que vous avez fait (le context en double, les problèmes d'edit). Vous avez bossé sérieusement et côté expérience utilisateur je suis vraiment satisfait.
-Quand on ouvre la boite, on trouve un code qui est difficile à lire, et parfois peu cohérent (setter deux fois les memes attributs). N'hésitez pas à prendre le temps d'aérer ca un peu mieux à l'avenir, car sur un projet de 200k lignes, ca ferait mal!
-Je chipote, mais quand je chipote c'est bon signe.
+Bon projet, dommage pour les quelques erreurs (JDBC Exception, les pattern, l'order by unidirectionnel)
+Des efforts sur l'architecture, même si le code java aurait mérité un peu plus d'attention.
